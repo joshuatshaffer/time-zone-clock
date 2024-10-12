@@ -7,9 +7,13 @@ export function App() {
 
   return (
     <>
-      <button onClick={() => setCount((count) => count + 1)}>
-        count is {count}
-      </button>
+      <select>
+        {Intl.supportedValuesOf("timeZone").map((timeZone) => (
+          <option key={timeZone} value={timeZone}>
+            {timeZone}
+          </option>
+        ))}
+      </select>
     </>
   );
 }
