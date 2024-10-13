@@ -13,6 +13,7 @@ export function Clock() {
 
   const hourLabel24R = r - 35;
   const hourLabel12R = r - 70;
+  const hourLabelUtcR = r + 5;
 
   return (
     <svg
@@ -70,6 +71,15 @@ export function Clock() {
             >
               {j === 0 ? 12 : j}
               {m}
+            </text>
+            <text
+              x={cx + hourLabelUtcR * Math.cos(angle)}
+              y={cy + hourLabelUtcR * Math.sin(angle)}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fontSize={12}
+            >
+              {(i + 5) % 24}
             </text>
           </>
         );
