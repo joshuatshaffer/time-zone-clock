@@ -21,6 +21,21 @@ export function Clock() {
       viewBox={`0 0 ${w} ${h}`}
       preserveAspectRatio="xMidYMid meet"
       xmlns="http://www.w3.org/2000/svg"
+      style={{
+        background: `conic-gradient(${(
+          [
+            ["night", 6],
+            ["day", 7.5],
+            ["day", 7 + 12],
+            ["night", 8 + 12],
+          ] as const
+        )
+          .map(
+            ([color, hourOfDay]) =>
+              `var(--${color}-color) ${(hourOfDay / 24) * 100}%`
+          )
+          .join(", ")})`,
+      }}
     >
       {Array.from({ length: 24 }).map((_, i) => {
         const angle = (3 / 4 + i / 24) * Math.PI * 2;
