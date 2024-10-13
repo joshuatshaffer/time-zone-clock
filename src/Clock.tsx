@@ -11,8 +11,8 @@ export function Clock() {
   const minuteMarkR1 = r - 18;
   const minuteMarkR2 = hourMarkR2;
 
-  const hourLabelAmR = r - 35;
-  const hourLabelPmR = r - 60;
+  const hourLabel24R = r - 35;
+  const hourLabel12R = r - 70;
 
   return (
     <svg
@@ -21,8 +21,11 @@ export function Clock() {
       viewBox={`0 0 ${w} ${h}`}
       xmlns="http://www.w3.org/2000/svg"
     >
-      {Array.from({ length: 12 }).map((_, i) => {
-        const angle = (3 / 4 + i / 12) * Math.PI * 2;
+      {Array.from({ length: 24 }).map((_, i) => {
+        const angle = (3 / 4 + i / 24) * Math.PI * 2;
+
+        const [j, m] =
+          i >= 12 ? ([i - 12, "pm"] as const) : ([i, "am"] as const);
 
         return (
           <>
@@ -35,32 +38,32 @@ export function Clock() {
               strokeWidth={3}
             />
             <text
-              x={cx + hourLabelAmR * Math.cos(angle)}
-              y={cy + hourLabelAmR * Math.sin(angle)}
+              x={cx + hourLabel24R * Math.cos(angle)}
+              y={cy + hourLabel24R * Math.sin(angle)}
               textAnchor="middle"
               dominantBaseline="middle"
-              fill="red"
             >
               {i}
             </text>
             <text
-              x={cx + hourLabelPmR * Math.cos(angle)}
-              y={cy + hourLabelPmR * Math.sin(angle)}
+              x={cx + hourLabel12R * Math.cos(angle)}
+              y={cy + hourLabel12R * Math.sin(angle)}
               textAnchor="middle"
               dominantBaseline="middle"
-              fill="blue"
+              fontSize={12}
             >
-              {i + 12}
+              {j === 0 ? 12 : j}
+              {m}
             </text>
           </>
         );
       })}
-      {Array.from({ length: 12 * 5 }).map((_, i) => {
+      {Array.from({ length: 24 * 5 }).map((_, i) => {
         if (i % 5 === 0) {
           return;
         }
 
-        const angle = (3 / 4 + i / (12 * 5)) * Math.PI * 2;
+        const angle = (3 / 4 + i / (24 * 5)) * Math.PI * 2;
 
         return (
           <line
