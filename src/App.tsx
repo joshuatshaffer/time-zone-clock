@@ -1,19 +1,5 @@
-import { atom, useAtom } from "jotai";
-
-const countAtom = atom(0);
+import { Clock } from "./Clock";
 
 export function App() {
-  const [count, setCount] = useAtom(countAtom);
-
-  return (
-    <>
-      <select>
-        {Intl.supportedValuesOf("timeZone").map((timeZone) => (
-          <option key={timeZone} value={timeZone}>
-            {timeZone}
-          </option>
-        ))}
-      </select>
-    </>
-  );
+  return <Clock />;
 }
